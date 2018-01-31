@@ -215,11 +215,9 @@ object OneDimensionalStencil {
   }
 
   /**
-    * Optimised parallel version using Phasers and grouping the elements of the array
-    * This version is optimised because it first calculates the values of the sides of the group, then signals out
-    * to the other threads that the barrier has been reached and finally calculates the internal values of the group.
+    * This version is optimised with the use of fuzzy barriers.
     */
-  def parWithPhasersAndGroupsOptimised(iter: Int, g: Int, arr: Array[Double]) = {
+  def parWithFuzzyBarrier(iter: Int, g: Int, arr: Array[Double]) = {
     //import scala.concurrent.ExecutionContext.Implicits.global
     implicit val ec = ExecutionContext.fromExecutor(Executors.newFixedThreadPool(g))
     //defensive copy to stop arr from being mutated outside this method

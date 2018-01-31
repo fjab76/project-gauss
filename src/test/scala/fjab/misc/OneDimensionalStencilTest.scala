@@ -62,7 +62,7 @@ class OneDimensionalStencilTest extends FunSuite {
   test("seq vs parWithPhasersAndGroupsOptimised"){
     val iterations = 10
     val array = Array(1.0,2,2,2,2,2,2,1)
-    assert(seq(iterations, array).mkString(",") == parWithPhasersAndGroupsOptimised(iterations, 3, array).mkString(","))
+    assert(seq(iterations, array).mkString(",") == parWithFuzzyBarrier(iterations, 3, array).mkString(","))
   }
 
   test("seq vs barrier benchmark"){
@@ -76,7 +76,7 @@ class OneDimensionalStencilTest extends FunSuite {
     println(-t + System.currentTimeMillis())
 
     val tt = System.currentTimeMillis()
-    val r2 = parWithPhasersAndGroupsOptimised(repetitions,4,array).mkString(",")
+    val r2 = parWithFuzzyBarrier(repetitions,4,array).mkString(",")
     println(-tt + System.currentTimeMillis())
 
     assert(r1==r2)
