@@ -102,41 +102,13 @@ package object collatz {
     }
 
     /**
-      * Returns the entry point of n in the cycle target.
-      * If the equivalence class of n is not target, then it returns None
-      */
-    def entryPoint(n: BigInt, target: BigInt): Option[BigInt] = {
-      if (n > upperBound) throw new IllegalArgumentException(s"$n must be equal or less than $upperBound")
-
-      val iter = (`~`) (n).iterator
-
-      def loop(m: BigInt): Option[BigInt] = {
-        val ec = quotientSet.filter(_.contains(m))
-        if (ec.size == 1) {
-          if (ec.head.head == target) Some(m)
-          else None
-        }
-        else
-          loop(iter.next())
-      }
-
-      loop(iter.next())
-    }
-
-    /**
       * Classifies the integers from 1 to n according to its entry point in the cycle target
       * Returns a map between each element of the cycle target and the integers that have that element as entry point
       */
-    def entryPointsClassification1(n: BigInt, target: BigInt): Map[BigInt, Seq[BigInt]] = {
+    def entryPointsClassification(n: BigInt, target: BigInt): Map[BigInt, Seq[BigInt]] = {
       BigInt(1) to n filter(projection(_) == target) groupBy(entryPoint)
     }
 
-    /**
-      * A more efficient version of entryPointsClassification1
-      */
-    def entryPointsClassification2(n: BigInt, target: BigInt): Map[BigInt, Seq[BigInt]] = {
-      BigInt(1) to n groupBy(entryPoint(_, target)) filterNot{case (x,y) => x.isEmpty} map{case (x,y) => (x.get,y)}
-    }
   }
 
   /**
@@ -190,6 +162,11 @@ package object collatz {
     def `3*n-1`(n: BigInt): Stream[BigInt] = (n/2)*2 match{
       case `n` => n #:: `3*n-1`(n/2)
       case _ => n #:: `3*n-1`(3*n-1)
+    }
+
+    def `5*n-1`(n: BigInt): Stream[BigInt] = (n/2)*2 match{
+      case `n` => n #:: `5*n-1`(n/2)
+      case _ => n #:: `5*n-1`(5*n-1)
     }
   }
 
