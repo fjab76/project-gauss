@@ -188,36 +188,13 @@ package object collatz {
       * @return
       */
     def <=>(m: BigInt): List[BigInt] = {
-      val projectionN = clsg.projection(n)
-      val projectionM = clsg.projection(m)
-
-      if(projectionN != projectionM) List()
-      else {
-
-        val path1 = pathWhenTheSecondIsInTheDecayPathOfTheFirst(n,m)
-        if(path1 == Nil){
-          val path2 = pathWhenTheSecondIsInTheDecayPathOfTheFirst(n,m)
-          if(path2 == Nil) pathWhenTheirDecayPathsOverlap(n,m)
-          else path2.reverse
-        }
-        else path1
-      }
-    }
-
-    def pathWhenTheSecondIsInTheDecayPathOfTheFirst(n: BigInt, m: BigInt): List[BigInt] = {
-      val decayPathN = clsg.decayPath(n)
-      val idx = decayPathN.indexOf(m)
-      if(idx >= 0) decayPathN.slice(0,idx + 1)
-      else Nil
-    }
-
-    def pathWhenTheirDecayPathsOverlap(n: Int, m: BigInt): List[BigInt] = {
       val decayPathN = clsg.decayPath(n)
       val decayPathM = clsg.decayPath(m)
 
-      val intersectionPoint = decayPathN.intersect(decayPathM).head
-      decayPathN.slice(0, decayPathN.indexOf(intersectionPoint) + 1) ++
-        decayPathM.slice(0, decayPathM.indexOf(intersectionPoint)).reverse
+      decayPathN.intersect(decayPathM).headOption.map{ intersectionPoint =>
+        decayPathN.slice(0, decayPathN.indexOf(intersectionPoint) + 1) ++
+          decayPathM.slice(0, decayPathM.indexOf(intersectionPoint)).reverse
+      }.toList.flatten
     }
   }
 
