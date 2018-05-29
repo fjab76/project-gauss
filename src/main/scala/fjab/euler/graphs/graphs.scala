@@ -5,6 +5,7 @@ package fjab.euler
   */
 package object graphs {
 
+  type Coin = Int
   type Coordinate = (Int, Int)
 
   implicit class RichTuple2(coordinate: Coordinate){

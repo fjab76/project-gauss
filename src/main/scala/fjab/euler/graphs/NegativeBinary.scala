@@ -25,8 +25,8 @@ class NegativeBinary(int: Int) extends GraphTraversal[Int]{
 
   override def neighbours(vertex: Int): List[Int] = moves
 
-  override def addNeighbours(listOfPaths: List[Path], pathsToAdjacentVertices: List[Path]): List[Path] =
-    listOfPaths ++ pathsToAdjacentVertices //breadth-first search
+  override def addNeighbours(verticesToExplore: List[Path], neighbours: List[Path]): List[Path] =
+    verticesToExplore ++ neighbours //breadth-first search
 
   override def isSolution(path: Path): Boolean =
     path.reverse.zipWithIndex.foldLeft(0){case (acc, (vertex, idx)) => acc + vertex * BigInt(-2).pow(idx).toInt} == int
