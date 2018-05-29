@@ -17,9 +17,9 @@ package fjab.euler.graphs
   * - the succession of 0s and 1s in a path is interpreted as a binary representation
   *
   */
-class NegativeBinary(int: Int) extends GraphTraversal[Int]{
+class NegativeBinary(number: Int) extends GraphTraversal[Int]{
 
-  val moves: List[Int] = List(0, 1)
+  override val moves: List[Int] = List(0, 1)
 
   def findShortestBinaryRepresentation() = findPath(List(List(0),List(1)))
 
@@ -29,7 +29,7 @@ class NegativeBinary(int: Int) extends GraphTraversal[Int]{
     verticesToExplore ++ neighbours //breadth-first search
 
   override def isSolution(path: Path): Boolean =
-    path.reverse.zipWithIndex.foldLeft(0){case (acc, (vertex, idx)) => acc + vertex * BigInt(-2).pow(idx).toInt} == int
+    path.reverse.zipWithIndex.foldLeft(0){case (acc, (vertex, idx)) => acc + vertex * BigInt(-2).pow(idx).toInt} == number
 
 
   /**

@@ -9,11 +9,12 @@ package fjab.euler.graphs
  */
 class ChessKnightInfinite(target: Coordinate) extends GraphTraversal[Coordinate]{
 
-  val knightMoves: List[Coordinate] = List((2,1), (1,2), (-1,2), (-2,1), (-2,-1), (-1,-2), (1,-2), (2,-1))
+  //knight moves
+  override val moves: List[Coordinate] = List((2,1), (1,2), (-1,2), (-2,1), (-2,-1), (-1,-2), (1,-2), (2,-1))
 
   def findShortestPathFrom(from: Coordinate): Path = findPath(List(List(from)))
 
-  override def neighbours(coordinate: Coordinate): List[Coordinate] = knightMoves.map( coordinate + _)
+  override def neighbours(coordinate: Coordinate): List[Coordinate] = moves.map( coordinate + _)
 
 
   /**

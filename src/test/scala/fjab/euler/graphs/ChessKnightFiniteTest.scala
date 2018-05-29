@@ -23,7 +23,8 @@ class ChessKnightFiniteTest extends FunSpec {
   }
 
   describe("The solution for a 16x16 board") {
-    //...
+
+    //takes too long wit basic implementation
     ignore("should be List((0,0), (2,1), (4,2), (6,3), (8,4), (10,5), (12,6), (13,8), (14,10), (15,12), (14,14)) for path (0,0)->(14,14)") {
       assert(new ChessKnightFinite((14,14))(16,16).findShortestPathFrom((0, 0)) == List((0,0), (2,1), (4,2), (6,3), (8,4), (10,5), (12,6), (13,8), (14,10), (15,12), (14,14)))
     }

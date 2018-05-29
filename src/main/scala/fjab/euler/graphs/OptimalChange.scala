@@ -1,9 +1,9 @@
 package fjab.euler.graphs
 
 
-class OptimalChange(coins: List[Coin])(amount: Int) extends GraphTraversal[Int]{
+class OptimalChange(coins: List[Coin])(amount: Int) extends GraphTraversal[Coin]{
 
-  val moves: List[Coin] = coins
+  override val moves: List[Coin] = coins
 
   def optimalChange() = findPath(List(List(0))).tail
 

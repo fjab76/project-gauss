@@ -9,6 +9,8 @@ abstract class GraphTraversal[T] {
   //Path to a Vertex
   type Path = List[Vertex]
 
+  val moves: List[T]
+
   /**
     * This method traverses the graph and as it does so, builds all possible paths until finding the solution 
     * as per the definition of the method 'isSolution'.
