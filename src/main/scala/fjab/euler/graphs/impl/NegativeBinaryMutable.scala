@@ -1,4 +1,8 @@
-package fjab.euler.graphs
+package fjab.euler.graphs.impl
+
+import fjab.euler.graphs.api.SharedKnowledgeGraphTraversal
+
+import scala.collection.mutable.ListBuffer
 
 /**
   *
@@ -17,16 +21,16 @@ package fjab.euler.graphs
   * - the succession of 0s and 1s in a path is interpreted as a binary representation
   *
   */
-class NegativeBinary(number: Int) extends GraphTraversal[Int]{
+class NegativeBinaryMutable(number: Int) extends SharedKnowledgeGraphTraversal[Int]{
 
-  override val moves: List[Int] = List(0, 1)
+  val moves: List[Int] = List(0, 1)
 
   def findShortestBinaryRepresentation() = findPath(List(List(0),List(1)))
 
-  override def neighbours(vertex: Int): List[Int] = moves
+  override def neighbours(vertex: Vertex): List[Vertex] = moves
 
-  override def addNeighbours(verticesToExplore: List[Path], neighbours: List[Path]): List[Path] =
-    verticesToExplore ++ neighbours //breadth-first search
+  override def addNeighbours(verticesToExplore: ListBuffer[Path], neighbours: List[Path]) =
+    verticesToExplore ++= neighbours //breadth-first search
 
   override def isSolution(path: Path): Boolean =
     path.reverse.zipWithIndex.foldLeft(0){case (acc, (vertex, idx)) => acc + vertex * BigInt(-2).pow(idx).toInt} == number
@@ -35,6 +39,6 @@ class NegativeBinary(number: Int) extends GraphTraversal[Int]{
   /**
     * By construction, a path can never visit the same vertex twice. Therefore, no extra filter is needed.
     */
-  override def isVertexEligibleForPath(vertex: Int, path: Path): Boolean = true
+  override def isVertexEligibleForPath(vertex: Vertex, path: Path): Boolean = true
 }
 

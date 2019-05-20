@@ -1,6 +1,8 @@
-package fjab.euler.graphs
+package fjab.euler.graphs.impl
 
-class ChessKnightFinite(target: Coordinate)(boardSize: (Int,Int)) extends ChessKnightInfinite(target){
+import fjab.euler.graphs.Coordinate
+
+class ChessKnightFiniteMutable(target: Coordinate)(boardSize: (Int,Int)) extends ChessKnightInfiniteMutable(target){
 
   val x = boardSize._1
   val y = boardSize._2
